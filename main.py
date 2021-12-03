@@ -3,7 +3,7 @@ from socket import *
 import sys  # In order to terminate the program
 
 serverSocket = socket(AF_INET, SOCK_STREAM)
-serverSocket.bind(("",8888))
+serverSocket.bind(('',8888))
 serverSocket.listen(3)
 # Prepare a sever socket
 # Fill in start
@@ -13,7 +13,7 @@ while True:
     print('Ready to serve...')
     connectionSocket, addr = serverSocket.accept() # Fill in start              #Fill in end
     try:
-        message = serverSocket.recv(1024) # Fill in start          #Fill in end
+        message = connectionSocket.recv(1024) # Fill in start          #Fill in end
         filename = message.split()[1]
         f = open(filename[1:])
         outputdata = f.read()
