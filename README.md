@@ -5,7 +5,7 @@ Ex3
 #### First
 Download all the files to the same directory.
 #### Second
-Start The Server
+Run main
 #### Third
 Open Your web browser
 #### Forth
