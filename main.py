@@ -8,7 +8,7 @@ FORMAT = "utf - 8"
 # Prepare a sever socket
 # Fill in start
 serverSocket = socket(AF_INET, SOCK_STREAM)
-serverSocket.bind(('',8888))
+serverSocket.bind(('',5050))
 serverSocket.listen(1)
 # Fill in end
 while True:
@@ -19,38 +19,44 @@ while True:
     #Fill in end
     try:
         # Fill in start
-        print('\n [RECV] receiving message . . .')
+        print('[RECV] receiving message . . .')
         message = connectionSocket.recv(1024)
+        print(f'Received message - {message}')
         #Fill in end
         filename = message.split()[1]
-        print("Opening File . . . ")
-        f = open(filename[1:])
-        print("Reading File . . . ")
-        outputdata = f.read()
-        print('[HTTP OK] sending HTTP OK')
-        s = "HTTP OK"
-        s = s.encode(FORMAT)
-        connectionSocket.send(s)
-        # Fill in start       #Fill in end
-        # Send one HTTP header line into socket
-        # Fill in start
-        # Fill in end
-        # Send the content of the requested file to the client
-        print('[SEND] sending contents of files')
-        for i in range(0, len(outputdata)):
-            connectionSocket.send(outputdata[i].encode())
-        connectionSocket.send("\r\n".encode(FORMAT))
-        print('[CLOSE] closing connections')
+        if filename == b'/favicon.ico':
+            print(f'Received message - /favicon.ico ')
+            print('ignoring . . .\n')
+        else:
+            print(f"Opening File - {filename} . . . ")
+            f = open(filename[1:])
+            print("Reading File . . . ")
+            outputdata = f.read()
+            print('[HTTP OK] sending HTTP OK')
+            connectionSocket.send("HTTP OK".encode())
+            # Fill in start       #Fill in end
+            # Send one HTTP header line into socket
+            # Fill in start
+            # Fill in end
+            # Send the content of the requested file to the client
+            print('[SEND] sending contents of files')
+            connectionSocket.send(outputdata.encode())
+            # for i in range(0, len(outputdata)):
+            #     connectionSocket.send(outputdata[i].encode())
+            connectionSocket.send("\r\n".encode(FORMAT))
+            print('[CLOSE] closing connections\n')
         connectionSocket.close()
     except OSError:
-        print("FAILED OPENING FILE DOESNT EXIST")
-        connectionSocket.send("HTTP OK".encode(FORMAT))
-        f = open("404eror.html")
-        outputdata = f.read()
-        for i in range(0, len(outputdata)):
-            connectionSocket.send(outputdata[i].encode(FORMAT))
-        connectionSocket.send("\r\n".encode(FORMAT))
-        connectionSocket.close()
+            print("FAILED OPENING FILE DOESNT EXIST")
+            connectionSocket.send("HTTP/1.1 200 OK")
+            f = open("404eror.html")
+            outputdata = f.read()
+            connectionSocket.send(outputdata.encode())
+            # for i in range(0, len(outputdata)):
+            #     connectionSocket.send(outputdata[i].encode(FORMAT))
+            connectionSocket.send("\r\n".encode(FORMAT))
+            print("\n")
+            connectionSocket.close()
 
 # Send response message for file not found
 # Fill in start
