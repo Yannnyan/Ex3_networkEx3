@@ -5,10 +5,12 @@ Ex3
 #### First
 Download all the files to the same directory.
 #### Second
-Open Your web browser
+Start The Server
 #### Third
-Type http://YourIP:8888/filename into the url address
+Open Your web browser
 #### Forth
+Type http://YourIP:8888/filename into the url address
+#### Fifth
 Press enter
 ### Example
 YourIP = 10.100.100.5__
