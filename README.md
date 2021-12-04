@@ -11,8 +11,8 @@ Type http://YourIP:8888/filename into the url address
 #### Forth
 Press enter
 ### Example
-YourIP = 10.100.100.5
-filename = lol.html
+YourIP = 10.100.100.5 \n
+filename = lol.html \n
 http://10.100.100.5:8888/lol.html
 ### Comments:
 The page should appear with big header that says 404 ERROR if received unexisting file name
