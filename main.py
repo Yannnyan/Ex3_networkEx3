@@ -24,6 +24,7 @@ while True:
         print(f'Received message - {message}')
         #Fill in end
         filename = message.split()[1]
+        # favicon is ignored since it interrupts the load of the html
         if filename == b'/favicon.ico':
             print(f'Received message - /favicon.ico ')
             print('ignoring . . .\n')
@@ -34,15 +35,9 @@ while True:
             outputdata = f.read()
             print('[HTTP OK] sending HTTP OK')
             connectionSocket.send('HTTP/1.0 200 OK\n\n'.encode())
-            # Fill in start       #Fill in end
-            # Send one HTTP header line into socket
-            # Fill in start
-            # Fill in end
             # Send the content of the requested file to the client
             print('[SEND] sending contents of files')
             connectionSocket.send(outputdata.encode())
-            # for i in range(0, len(outputdata)):
-            #     connectionSocket.send(outputdata[i].encode())
             connectionSocket.send("\r\n".encode(FORMAT))
             print('[CLOSE] closing connections\n')
         connectionSocket.close()
@@ -52,17 +47,8 @@ while True:
             f = open("404eror.html")
             outputdata = f.read()
             connectionSocket.send(outputdata.encode())
-            # for i in range(0, len(outputdata)):
-            #     connectionSocket.send(outputdata[i].encode(FORMAT))
             connectionSocket.send("\r\n".encode(FORMAT))
             print("\n")
             connectionSocket.close()
-
-# Send response message for file not found
-# Fill in start
-# Fill in end
-# Close client socket
-# Fill in start
-# Fill in end
 serverSocket.close()
 sys.exit()  # Terminate the program after sending the corresponding data
