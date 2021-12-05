@@ -33,7 +33,7 @@ while True:
             print("Reading File . . . ")
             outputdata = f.read()
             print('[HTTP OK] sending HTTP OK')
-            connectionSocket.send("HTTP/1.1 200 OK".encode(FORMAT))
+            connectionSocket.send('HTTP/1.0 200 OK\n\n'.encode())
             # Fill in start       #Fill in end
             # Send one HTTP header line into socket
             # Fill in start
@@ -48,7 +48,7 @@ while True:
         connectionSocket.close()
     except OSError:
             print("FAILED OPENING FILE DOESNT EXIST")
-            connectionSocket.send("HTTP/1.1 200 OK".encode(FORMAT))
+            connectionSocket.send('HTTP/1.1 404 Not Found\n\n'.encode())
             f = open("404eror.html")
             outputdata = f.read()
             connectionSocket.send(outputdata.encode())
